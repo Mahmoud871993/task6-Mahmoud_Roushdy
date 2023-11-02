@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "phone1",
+      "description": "new cell phone1",
+      "price": 2000,
+      "quantity": 66
+    },
+    {
+      "id": 2,
+      "name": "phone2",
+      "description": "new cell phone2",
+      "price": 3000,
+      "quantity": 23
+    },
+    {
+      "id": 3,
+      "name": "phone3",
+      "description": "new cell phone3",
+      "price": 1000,
+      "quantity": 12
+    },
+    {
+      "id": 4,
+      "name": "phone4",
+      "description": "new cell phone4",
+      "price": 4000,
+      "quantity": 9
+    },
+    {
+      "id": 5,
+      "name": "phone 5",
+      "description": "data to API",
+      "price": 600,
+      "quantity": 12
+    }
+  ],
+  "users": [
+    {
+      "user": "mahmoud",
+      "email": "mahmoud@gmail.com",
+      "password": "1234"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "category": "applinces"
+    }
+  ]
+}
