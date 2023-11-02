@@ -1,0 +1,41 @@
+<form class="row g-3" [formGroup]="loginForm" (submit)="login($event)">
+    <h1 class="text-primary">Login form</h1>
+    <div class="col-11">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" class="form-control" id="email" formControlName="email" 
+      [ngClass]="{
+        'is-invalid':!emailControl?.valid && emailControl?.touched,
+        'is-valid':emailControl?.valid
+      }"
+      required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+       Email is required
+      </div>
+    </div>
+    <div class="col-11">
+      <label for="password" class="form-label">Password</label>
+      <input type="text" class="form-control" id="password" formControlName="password" 
+      [ngClass]="{
+        'is-invalid':!passwordControlv?.valid,
+        'is-valid':passwordControlv?.valid
+      }"
+      required>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+      wrong passward!
+      </div>
+    </div>
+    
+    
+    <div class="col-12">
+      <button
+       class="btn btn-primary" type="submit"
+  
+      >Submit</button>
+    </div>
+  </form>

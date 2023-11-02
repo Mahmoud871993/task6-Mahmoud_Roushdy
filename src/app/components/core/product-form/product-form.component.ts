@@ -1,7 +1,10 @@
+//import { Iproduct } from './../../../models/iproduct';
 import { ProductsService } from 'src/app/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { Iproduct } from 'src/app/models/iproduct';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProductWithApiService } from 'src/app/services/product-with-api.service';
 
 @Component({
   selector: 'app-product-form',
@@ -9,43 +12,58 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-  product:Iproduct = {
-    id:0,
-    name:"",
-    description:"",
-    price:0,
-    quantity:0
-  }
-  prodId:number = 0
 
-  constructor(private prodservice:ProductsService, private router:Router, private activatedroute: ActivatedRoute)
-  {}
+  prodId:number =0;
+
+  // product:Iproduct = {
+  //   id:0,
+  //   name:"",
+  //   description:"",
+  //   price:0,
+  //   quantity:0
+  //}
+
+  productForm: FormGroup = new FormGroup({
+    id:new FormControl(0),
+    name:new FormControl('', [Validators.required, Validators.minLength(3)]),
+    description:new FormControl('',[Validators.required, Validators.maxLength(100)]),
+    price:new FormControl(0, [Validators.required, Validators.max(10000), Validators.min(100)]),
+    quantity:new FormControl(0,Validators.required)
+
+  })
+  constructor(private activatedroute: ActivatedRoute, private prodservice: ProductWithApiService, private router:Router){}
   ngOnInit(): void {
-    this.prodId = this.activatedroute.snapshot.params['id'];
-    if(this.prodId!=0){
-      let prod = this.prodservice.getById(this.prodId);
-      if (prod) this.product = prod; 
+   this.prodId = this.activatedroute.snapshot.params['id'];
+   if (this.prodId > 0){
+    this.prodservice.getById(this.prodId).subscribe((data)=>{
+      this.productForm.controls['name'].setValue(data.name);
+      this.productForm.controls['description'].setValue(data.description);
+      this.productForm.controls['price'].setValue(data.price);
+      this.productForm.controls['quantity'].setValue(data.quantity);
 
-    }
+   }) ;
+
+   }else{
+
+   }
   }
-
-  GetData(s:Event){
-    s.preventDefault();
-    console.log(this.product);
-    if(this.prodId){
-
-      this.prodservice.edit(this.prodId, this.product)
-    }else
+ 
+GetData(e:Event){
+  e.preventDefault();
+  if(this.productForm.valid){
+    console.log(this.productForm.value);
+    if(this.prodId > 0)
     {
-      this.prodservice.add(this.product)
+      this.prodservice.edit(this.prodId, this.productForm.value).subscribe()
+
+    }else{ 
+      this.prodservice.add(this.productForm.value).subscribe();
 
     }
-
-
-
     this.router.navigate(['/product']);
 
   }
-
+ 
+}
 
 }

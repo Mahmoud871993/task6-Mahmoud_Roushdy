@@ -1,31 +1,51 @@
-<form class="row g-3"(submit)="GetData($event)">
+<form class="row g-3" [formGroup]="productForm" (submit)="GetData($event)">
     <div class="col-md-4">
       <label for="name" class="form-label">Product name</label>
-      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" required>
+      <input type="text" class="form-control" id="name" name="name" formControlName="name"
+      [class.is-invalid] ="!productForm.controls['name'].valid"
+      required>
       <div class="valid-feedback">
         Looks good!
       </div>
+      <div class="invalid-feedback">
+        {{ productForm.controls['name'].errors | json}}
+       </div>
     </div>
     <div class="col-md-4">
       <label for="description" class="form-label" >Description</label>
-      <input type="text" class="form-control" id="description"name="Description" [(ngModel)]="product.description" required>
+      <input type="text" class="form-control" id="description"name="description" formControlName="description" 
+      [class.is-invalid] ="!productForm.controls['description'].valid"
+      required>
       <div class="valid-feedback">
         Looks good!
+      </div>
+      <div class="invalid-feedback">
+       {{ productForm.controls['description'].errors | json}}
       </div>
     </div>
     <div class="col-md-4">
         <label for="price" class="form-label" >Price</label>
-        <input type="number" class="form-control" id="price" name="price" [(ngModel)]="product.price" required>
+        <input type="number" class="form-control" id="price" name="price" formControlName="price"
+        [class.is-invalid] ="!productForm.controls['price'].valid"
+        required>
         <div class="valid-feedback">
           Looks good!
         </div>
+        <div class="invalid-feedback">
+          {{ productForm.controls['price'].errors | json}}
+         </div>
       </div>
     <div class="col-md-4">
         <label for="quantity" class="form-label" >Quantity</label>
-        <input type="number" class="form-control" id="quantity" name="quantity" [(ngModel)]="product.quantity" required>
+        <input type="number" class="form-control" id="quantity" name="quantity" formControlName="quantity"
+        [class.is-invalid] ="!productForm.controls['quantity'].valid"
+        required>
         <div class="valid-feedback">
           Looks good!
         </div>
+        <div class="invalid-feedback">
+          {{ productForm.controls['quantity'].errors | json}}
+         </div>
       </div>
  
     <div class="col-12">

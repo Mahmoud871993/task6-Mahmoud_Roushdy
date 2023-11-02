@@ -15,7 +15,9 @@ import { ProductFormComponent } from './components/core/product-form/product-for
 import { StudentComponent } from './components/core/student/student.component';
 import { StudentDetailsComponent } from './components/core/student-details/student-details.component';
 import { StudentFormComponent } from './components/core/student-form/student-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveformComponent } from './components/core/reactiveform/reactiveform.component';
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -31,12 +33,15 @@ import { FormsModule } from '@angular/forms';
     ProductFormComponent,
     StudentComponent,
     StudentDetailsComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    ReactiveformComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

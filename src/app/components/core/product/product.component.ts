@@ -2,6 +2,7 @@ import { ProductsService } from './../../../services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { Iproduct } from 'src/app/models/iproduct';
 import { productslist } from 'src/app/models/productslist';
+import { ProductWithApiService } from 'src/app/services/product-with-api.service';
 
 @Component({
   selector: 'app-product',
@@ -9,20 +10,29 @@ import { productslist } from 'src/app/models/productslist';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
   products:Iproduct[] = [];
 
-  constructor(private prodservice:ProductsService){
+  constructor(private prodservice: ProductWithApiService){}
 
-
-  }
   ngOnInit(): void {
-   this.products= this.prodservice.getAll()
-  }
+   this.prodservice.getAll().subscribe({
+    next:(data) => {this.products = data},
+    error: (err) => {console.log('error:' + err)},
+    complete:() =>{},
+   });
+   console.log(this.products);
+   }
+   //console.log(this.products);
 
-  remove(id:number){
-    var result = confirm("Do you want to delete this item?");
-    if(result)
-    this.prodservice.delete(id)
-  }
-
+   remove(id:number)
+   {
+    this.prodservice.delete(id).subscribe();
+   this.products.filter((p) =>p.id != id);
+    
+   }
+   
+  
+   
+  
 }
